@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# ALIASES
+
 # Use neovim for GitHub Copilot.
 alias vim="nvim"
 
@@ -60,6 +62,7 @@ fi
 # List all files colorized in long format
 # shellcheck disable=SC2139
 alias l="ls -lhF ${colorflag}"
+alias ll="l"
 
 # List all files colorized in long format, including dot files
 # shellcheck disable=SC2139
@@ -91,9 +94,6 @@ alias pubip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="sudo ifconfig | grep -Eo 'inet (addr:)?([0-9]*\\.){3}[0-9]*' | grep -Eo '([0-9]*\\.){3}[0-9]*' | grep -v '127.0.0.1'"
 alias ips="sudo ifconfig -a | grep -o 'inet6\\? \\(addr:\\)\\?\\s\\?\\(\\(\\([0-9]\\+\\.\\)\\{3\\}[0-9]\\+\\)\\|[a-fA-F0-9:]\\+\\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
 
-# Flush Directory Service cache
-alias flush="dscacheutil -flushcache && killall -HUP mDNSResponder"
-
 # View HTTP traffic
 alias sniff="sudo ngrep -d 'en1' -t '^(GET|POST) ' 'tcp and port 80'"
 alias httpdump="sudo tcpdump -i en1 -n -s 0 -w - | grep -a -o -E \"Host\\: .*|GET \\/.*\""
@@ -107,15 +107,8 @@ command -v md5sum > /dev/null || alias md5sum="md5"
 # OS X has no `sha1sum`, so use `shasum` as a fallback
 command -v sha1sum > /dev/null || alias sha1sum="shasum"
 
-# Trim new lines and copy to clipboard
-alias c="tr -d '\\n' | xclip -selection clipboard"
-
 # URL-encode strings
 alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
-
-# Merge PDF files
-# Usage: `mergepdf -o output.pdf input{1,2,3}.pdf`
-alias mergepdf='/System/Library/Automator/Combine\ PDF\ Pages.action/Contents/Resources/join.py'
 
 # Intuitive map function
 # For example, to list all directories that contain a certain file:
@@ -156,8 +149,8 @@ alias pubkey="more ~/.ssh/id_ed25519.pub | xclip -selection clipboard | echo '=>
 # Pipe my private key to my clipboard.
 alias prikey="more ~/.ssh/id_ed25519 | xclip -selection clipboard | echo '=> Private key copied to pasteboard.'"
 
-# Blender
-alias blender='/Applications/Blender.app/Contents/MacOS/Blender'
 
-# CAD exchanger
-alias cad_exchanger='/Applications/CAD\ Exchanger.app/Contents/MacOS/ExchangerConv'
+# INIT HOOKS
+
+# Log in to graphite
+gt auth --token "$GRAPHITE_AUTH_TOKEN"
