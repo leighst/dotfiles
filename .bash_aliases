@@ -150,10 +150,3 @@ alias pubkey="more ~/.ssh/id_ed25519.pub | xclip -selection clipboard | echo '=>
 alias prikey="more ~/.ssh/id_ed25519 | xclip -selection clipboard | echo '=> Private key copied to pasteboard.'"
 
 
-# INIT HOOKS
-
-# Log in to graphite
-gt auth --token "$GRAPHITE_AUTH_TOKEN"
-
-# Log in to ngrok
-ngrok config add-authtoken "$NGROK_AUTH_TOKEN"
